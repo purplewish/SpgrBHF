@@ -6,20 +6,6 @@
 
 using namespace Rcpp;
 
-// scad
-arma::vec scad(arma::vec v, double lam, double nu, double gam);
-RcppExport SEXP _SpgrBHF_scad(SEXP vSEXP, SEXP lamSEXP, SEXP nuSEXP, SEXP gamSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type v(vSEXP);
-    Rcpp::traits::input_parameter< double >::type lam(lamSEXP);
-    Rcpp::traits::input_parameter< double >::type nu(nuSEXP);
-    Rcpp::traits::input_parameter< double >::type gam(gamSEXP);
-    rcpp_result_gen = Rcpp::wrap(scad(v, lam, nu, gam));
-    return rcpp_result_gen;
-END_RCPP
-}
 // Spgr_bhf3
 Rcpp::List Spgr_bhf3(arma::vec indexy, arma::vec& y, arma::mat& x, arma::vec& weights, arma::mat& betam0, double nu, double gam, double lam, int maxiter, double tolabs, double tolrel);
 RcppExport SEXP _SpgrBHF_Spgr_bhf3(SEXP indexySEXP, SEXP ySEXP, SEXP xSEXP, SEXP weightsSEXP, SEXP betam0SEXP, SEXP nuSEXP, SEXP gamSEXP, SEXP lamSEXP, SEXP maxiterSEXP, SEXP tolabsSEXP, SEXP tolrelSEXP) {
@@ -70,12 +56,39 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// BICc_bhf3
+double BICc_bhf3(Rcpp::List obj, double c0);
+RcppExport SEXP _SpgrBHF_BICc_bhf3(SEXP objSEXP, SEXP c0SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type obj(objSEXP);
+    Rcpp::traits::input_parameter< double >::type c0(c0SEXP);
+    rcpp_result_gen = Rcpp::wrap(BICc_bhf3(obj, c0));
+    return rcpp_result_gen;
+END_RCPP
+}
+// scad
+arma::vec scad(arma::vec v, double lam, double nu, double gam);
+RcppExport SEXP _SpgrBHF_scad(SEXP vSEXP, SEXP lamSEXP, SEXP nuSEXP, SEXP gamSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type v(vSEXP);
+    Rcpp::traits::input_parameter< double >::type lam(lamSEXP);
+    Rcpp::traits::input_parameter< double >::type nu(nuSEXP);
+    Rcpp::traits::input_parameter< double >::type gam(gamSEXP);
+    rcpp_result_gen = Rcpp::wrap(scad(v, lam, nu, gam));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_SpgrBHF_scad", (DL_FUNC) &_SpgrBHF_scad, 4},
     {"_SpgrBHF_Spgr_bhf3", (DL_FUNC) &_SpgrBHF_Spgr_bhf3, 11},
     {"_SpgrBHF_loglik3", (DL_FUNC) &_SpgrBHF_loglik3, 8},
     {"_SpgrBHF_BIC_bhf3", (DL_FUNC) &_SpgrBHF_BIC_bhf3, 1},
+    {"_SpgrBHF_BICc_bhf3", (DL_FUNC) &_SpgrBHF_BICc_bhf3, 2},
+    {"_SpgrBHF_scad", (DL_FUNC) &_SpgrBHF_scad, 4},
     {NULL, NULL, 0}
 };
 
