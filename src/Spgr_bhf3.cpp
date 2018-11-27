@@ -1,5 +1,5 @@
 #include <RcppArmadillo.h>
-#include "functions.hpp"
+#include <functions.hpp>
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::plugins(cpp11)]] 
 using namespace Rcpp;
@@ -309,5 +309,20 @@ double BIC_bhf3(Rcpp::List obj)
   double ngest = ugroup.size();
   
   double bicvalue = -2*loglikvalue + log(nobs)*(ngest*ncx);
+  return(bicvalue);
+}
+
+// [[Rcpp::export]]
+double BICc_bhf3(Rcpp::List obj, double c0 = 0.2)
+{
+  arma::mat beta = obj("beta");
+  arma::uvec group= obj("group");
+  arma::uvec ugroup = unique(group);
+  double loglikvalue = obj("loglikvalue");
+  int ncx =  beta.n_cols;
+  int nobs = beta.n_rows;
+  double ngest = ugroup.size();
+  
+  double bicvalue = -2*loglikvalue + c0*log(log(nobs))*log(nobs)*(ngest*ncx);
   return(bicvalue);
 }
