@@ -323,6 +323,6 @@ double BICc_bhf3(Rcpp::List obj, double c0 = 0.2)
   int nobs = beta.n_rows;
   double ngest = ugroup.size();
 
-  double bicvalue = -2*loglikvalue + c0*log(log(nobs))*log(nobs)*(ngest*ncx);
+  double bicvalue = -2*loglikvalue + c0*log(log(nobs*ncx + 2))*log(nobs)*(ngest*ncx);
   return(bicvalue);
 }
